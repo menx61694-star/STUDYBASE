@@ -2,19 +2,30 @@
 
 Your Study Companion.
 
-## Current implementation
-
-This repository is being built incrementally from the approved StudyBase UI and implementation checklist.
+## Implementation status
 
 ### Phase 0 — Project Foundation
-- Flutter package foundation
-- Material 3 theme foundation
-- Static analysis configuration
-- GitHub Actions CI foundation
-- Clean source structure
+- Complete implementation committed.
+- CI workflow added.
+- Verification remains dependent on a GitHub Actions run.
+
+### Phase 1 — Branding & Design System
+Implemented:
+- StudyBase brand asset foundation
+- Blue primary color system
+- Light/dark theme foundations
+- Typography scale
+- Card/input design tokens
+- Reusable StudyBase logo widget
+- Material 3 application theme
+- Brand foundation widget test
+
+Pending in Phase 1:
+- Final launcher-icon packaging
+- Full common component library
+- Final visual regression audit
 
 ### Planned phases
-1. Branding & Design System
 2. Splash / Onboarding
 3. Authentication
 4. Home

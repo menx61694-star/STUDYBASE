@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'core/theme/app_theme.dart';
+import 'core/widgets/studybase_logo.dart';
+
 void main() {
   runApp(const StudyBaseApp());
 }
@@ -12,31 +15,24 @@ class StudyBaseApp extends StatelessWidget {
     return MaterialApp(
       title: 'StudyBase',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2F80ED),
-          brightness: Brightness.light,
-        ),
-      ),
-      home: const _FoundationScreen(),
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      themeMode: ThemeMode.system,
+      home: const _BrandFoundationScreen(),
     );
   }
 }
 
-class _FoundationScreen extends StatelessWidget {
-  const _FoundationScreen();
+class _BrandFoundationScreen extends StatelessWidget {
+  const _BrandFoundationScreen();
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text(
-          'StudyBase',
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w700,
-          ),
+        child: StudyBaseLogo(
+          size: 148,
+          showWordmark: true,
         ),
       ),
     );
