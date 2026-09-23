@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/app_spacing.dart';
-import 'features/auth/auth_screen.dart';
 import 'features/home/home_screen.dart';
 import 'core/widgets/primary_button.dart';
 import 'core/widgets/studybase_logo.dart';
