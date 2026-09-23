@@ -40,7 +40,7 @@ abstract final class AppTheme {
             borderSide: const BorderSide(color: AppColors.borderLight),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppRadii.md),
             borderSide: const BorderSide(color: AppColors.borderLight),
           ),
           focusedBorder: OutlineInputBorder(
@@ -69,7 +69,7 @@ abstract final class AppTheme {
           elevation: 0,
           margin: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(18)),
+            borderRadius: BorderRadius.all(Radius.circular(AppRadii.lg)),
             side: BorderSide(color: AppColors.borderDark),
           ),
         ),
