@@ -11,10 +11,34 @@ void main() {
     expect(bytes.sublist(0, 8), <int>[137, 80, 78, 71, 13, 10, 26, 10]);
   });
 
-  testWidgets('StudyBase brand foundation renders', (WidgetTester tester) async {
+  testWidgets('StudyBase splash and onboarding flow renders',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const StudyBaseApp());
 
-    expect(find.text('StudyBase'), findsOneWidget);
     expect(find.bySemanticsLabel('StudyBase logo'), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 950));
+    await tester.pump();
+
+    expect(find.text('Learn smarter'), findsOneWidget);
+    expect(find.text('Continue'), findsOneWidget);
+    expect(find.text('Skip'), findsOneWidget);
+  });
+
+  testWidgets('onboarding exposes all core learning steps',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const StudyBaseApp());
+    await tester.pump(const Duration(milliseconds: 950));
+    await tester.pump();
+
+    expect(find.text('Learn smarter'), findsOneWidget);
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+    expect(find.text('Keep your notes close'), findsOneWidget);
+
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+    expect(find.text('Practice and grow'), findsOneWidget);
+    expect(find.text('Get Started'), findsOneWidget);
   });
 }
