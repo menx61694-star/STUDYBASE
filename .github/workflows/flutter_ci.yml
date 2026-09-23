@@ -18,6 +18,9 @@ jobs:
         with:
           channel: stable
 
+      - name: Create Android platform scaffold
+        run: flutter create --platforms=android --no-pub .
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -26,3 +29,9 @@ jobs:
 
       - name: Test
         run: flutter test
+
+      - name: Generate launcher icons
+        run: dart run flutter_launcher_icons
+
+      - name: Verify launcher icon output
+        run: test -f android/app/src/main/res/mipmap-hdpi/launcher_icon.png
