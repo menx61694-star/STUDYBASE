@@ -138,7 +138,6 @@ class _StudyBaseOnboardingState extends State<_StudyBaseOnboarding> {
 
   @override
   Widget build(BuildContext context) {
-    final page = _pages[_page];
     final isLast = _page == _pages.length - 1;
 
     return Scaffold(
