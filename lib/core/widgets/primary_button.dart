@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_radii.dart';
+
 class StudyBasePrimaryButton extends StatelessWidget {
   const StudyBasePrimaryButton({
     super.key,
@@ -23,7 +25,7 @@ class StudyBasePrimaryButton extends StatelessWidget {
       style: FilledButton.styleFrom(
         minimumSize: const Size(0, 52),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(AppRadii.md),
         ),
       ),
     );
