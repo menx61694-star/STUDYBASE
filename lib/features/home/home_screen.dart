@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
             const StudyBaseSearchField(),
             const SizedBox(height: AppSpacing.xl),
-            SectionHeader(title: 'Subjects', actionLabel: 'View all', onAction: () {}),
+            StudyBaseSectionHeader(title: 'Subjects', actionLabel: 'View all', onAction: () {}),
             const SizedBox(height: AppSpacing.sm),
             ...subjects.map(
               (subject) => Padding(
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.md),
-            SectionHeader(
+            StudyBaseSectionHeader(
               title: 'Recent notes',
               actionLabel: 'View all',
               onAction: () {},
