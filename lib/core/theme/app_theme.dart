@@ -73,5 +73,26 @@ abstract final class AppTheme {
             side: BorderSide(color: AppColors.borderDark),
           ),
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: AppColors.surfaceDark,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.md,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppRadii.md),
+            borderSide: const BorderSide(color: AppColors.borderDark),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppRadii.md),
+            borderSide: const BorderSide(color: AppColors.borderDark),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppRadii.md),
+            borderSide: const BorderSide(color: AppColors.primaryLight, width: 1.5),
+          ),
+          hintStyle: const TextStyle(color: AppColors.textSecondaryDark),
+        ),
       );
 }
