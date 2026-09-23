@@ -17,7 +17,7 @@ void main() {
 
     expect(find.bySemanticsLabel('StudyBase logo'), findsOneWidget);
 
-    await tester.pump(const Duration(milliseconds: 950));
+    await tester.pump(const Duration(milliseconds: 1500));
     await tester.pump();
 
     expect(find.text('Learn smarter'), findsOneWidget);
@@ -28,7 +28,7 @@ void main() {
   testWidgets('onboarding exposes all core learning steps',
       (WidgetTester tester) async {
     await tester.pumpWidget(const StudyBaseApp());
-    await tester.pump(const Duration(milliseconds: 950));
+    await tester.pump(const Duration(milliseconds: 1500));
     await tester.pump();
 
     expect(find.text('Learn smarter'), findsOneWidget);
