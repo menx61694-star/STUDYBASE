@@ -44,7 +44,7 @@ abstract final class AppTheme {
             borderSide: const BorderSide(color: AppColors.borderLight),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppRadii.md),
             borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
           ),
         ),
