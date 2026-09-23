@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/app_spacing.dart';
+import 'features/auth/auth_screen.dart';
 import 'core/widgets/primary_button.dart';
 import 'core/widgets/studybase_logo.dart';
 import 'core/theme/app_theme.dart';
@@ -237,10 +238,6 @@ class _StudyBaseReadyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('StudyBase'),
-      ),
-    );
+    return const AuthScreen();
   }
 }
