@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
+import 'app_radii.dart';
+import 'app_spacing.dart';
 
 abstract final class AppTheme {
   static ThemeData light() => ThemeData(
@@ -22,7 +24,7 @@ abstract final class AppTheme {
           elevation: 0,
           margin: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(18)),
+            borderRadius: BorderRadius.all(Radius.circular(AppRadii.lg)),
             side: BorderSide(color: AppColors.borderLight),
           ),
         ),
@@ -30,11 +32,11 @@ abstract final class AppTheme {
           filled: true,
           fillColor: AppColors.surfaceLight,
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.md,
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppRadii.md),
             borderSide: const BorderSide(color: AppColors.borderLight),
           ),
           enabledBorder: OutlineInputBorder(
