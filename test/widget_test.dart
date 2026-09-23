@@ -1,8 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studybase/main.dart';
 
 void main() {
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+  });
   test('launcher source is a registered PNG asset', () async {
     final data = await rootBundle.load('assets/branding/studybase_launcher.png');
     final bytes = data.buffer.asUint8List();
