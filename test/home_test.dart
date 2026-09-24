@@ -10,7 +10,9 @@ void main() {
     expect(find.text('StudyBase'), findsOneWidget);
     expect(find.text('Ready to learn?'), findsOneWidget);
     expect(find.widgetWithText(StudyBaseSectionHeader, 'Subjects'), findsOneWidget);
-    expect(find.text('Recent notes'), findsOneWidget);
+    final recentNotes = find.widgetWithText(StudyBaseSectionHeader, 'Recent notes');
+    await tester.ensureVisible(recentNotes);
+    expect(recentNotes, findsOneWidget);
     expect(find.text('General Knowledge'), findsWidgets);
     expect(find.text('Mathematics'), findsWidgets);
     expect(find.text('Search notes, subjects...'), findsOneWidget);
