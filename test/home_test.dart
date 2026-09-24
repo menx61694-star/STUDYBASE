@@ -14,7 +14,10 @@ void main() {
     await tester.scrollUntilVisible(
       recentNotes,
       400,
-      scrollable: find.byType(ListView),
+      scrollable: find.ancestor(
+        of: find.byType(ListView),
+        matching: find.byType(Scrollable),
+      ),
     );
     expect(recentNotes, findsOneWidget);
     expect(find.text('General Knowledge'), findsWidgets);
