@@ -4,6 +4,7 @@ import '../../core/theme/app_spacing.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/studybase_search_field.dart';
 import '../../core/widgets/subject_tile.dart';
+import '../notes/notes_screen.dart';
 
 class SubjectsScreen extends StatelessWidget {
   const SubjectsScreen({super.key});
@@ -43,7 +44,13 @@ class SubjectsScreen extends StatelessWidget {
                 title: subject.title,
                 icon: subject.icon,
                 noteCount: subject.count,
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => NotesScreen(subject: subject.title),
+                    ),
+                  );
+                },
               ),
             ),
           ),

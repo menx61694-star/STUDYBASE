@@ -5,6 +5,7 @@ import '../../core/widgets/note_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/studybase_search_field.dart';
 import '../../core/widgets/subject_tile.dart';
+import '../notes/notes_screen.dart';
 import '../subjects/subjects_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -76,7 +77,9 @@ class HomeScreen extends StatelessWidget {
                   noteCount: subject.count,
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const SubjectsScreen()),
+                      MaterialPageRoute(
+                        builder: (_) => NotesScreen(subject: subject.title),
+                      ),
                     );
                   },
                 ),
@@ -86,7 +89,11 @@ class HomeScreen extends StatelessWidget {
             StudyBaseSectionHeader(
               title: 'Recent notes',
               actionLabel: 'View all',
-              onAction: () {},
+              onAction: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const NotesScreen()),
+                );
+              },
             ),
             const SizedBox(height: AppSpacing.sm),
             ...recentNotes.map(
@@ -95,7 +102,13 @@ class HomeScreen extends StatelessWidget {
                 child: StudyBaseNoteCard(
                   title: note.title,
                   subject: note.subject,
-                  onOpen: () {},
+                  onOpen: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => NotesScreen(subject: note.subject),
+                      ),
+                    );
+                  },
                   onDownload: () {},
                 ),
               ),
