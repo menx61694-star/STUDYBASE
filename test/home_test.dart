@@ -11,7 +11,11 @@ void main() {
     expect(find.text('Ready to learn?'), findsOneWidget);
     expect(find.widgetWithText(StudyBaseSectionHeader, 'Subjects'), findsOneWidget);
     final recentNotes = find.widgetWithText(StudyBaseSectionHeader, 'Recent notes');
-    await tester.ensureVisible(recentNotes);
+    await tester.scrollUntilVisible(
+      recentNotes,
+      400,
+      scrollable: find.byType(Scrollable),
+    );
     expect(recentNotes, findsOneWidget);
     expect(find.text('General Knowledge'), findsWidgets);
     expect(find.text('Mathematics'), findsWidgets);
