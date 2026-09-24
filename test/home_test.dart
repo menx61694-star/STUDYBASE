@@ -11,14 +11,9 @@ void main() {
     expect(find.text('Ready to learn?'), findsOneWidget);
     expect(find.widgetWithText(StudyBaseSectionHeader, 'Subjects'), findsOneWidget);
     final recentNotes = find.widgetWithText(StudyBaseSectionHeader, 'Recent notes');
-    await tester.scrollUntilVisible(
-      recentNotes,
-      400,
-      scrollable: find.ancestor(
-        of: find.byType(ListView),
-        matching: find.byType(Scrollable),
-      ),
-    );
+    await tester.binding.setSurfaceSize(const Size(400, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pump();
     expect(recentNotes, findsOneWidget);
     expect(find.text('General Knowledge'), findsWidgets);
     expect(find.text('Mathematics'), findsWidgets);
