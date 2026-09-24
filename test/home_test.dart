@@ -14,7 +14,7 @@ void main() {
     await tester.scrollUntilVisible(
       recentNotes,
       400,
-      scrollable: find.byType(Scrollable),
+      scrollable: find.byType(ListView),
     );
     expect(recentNotes, findsOneWidget);
     expect(find.text('General Knowledge'), findsWidgets);
