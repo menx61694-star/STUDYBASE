@@ -5,6 +5,7 @@ import '../../core/widgets/note_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/studybase_search_field.dart';
 import '../../core/widgets/subject_tile.dart';
+import '../subjects/subjects_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -56,7 +57,15 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
             const StudyBaseSearchField(),
             const SizedBox(height: AppSpacing.xl),
-            StudyBaseSectionHeader(title: 'Subjects', actionLabel: 'View all', onAction: () {}),
+            StudyBaseSectionHeader(
+              title: 'Subjects',
+              actionLabel: 'View all',
+              onAction: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const SubjectsScreen()),
+                );
+              },
+            ),
             const SizedBox(height: AppSpacing.sm),
             ...subjects.map(
               (subject) => Padding(
@@ -65,7 +74,11 @@ class HomeScreen extends StatelessWidget {
                   title: subject.title,
                   icon: subject.icon,
                   noteCount: subject.count,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const SubjectsScreen()),
+                    );
+                  },
                 ),
               ),
             ),
