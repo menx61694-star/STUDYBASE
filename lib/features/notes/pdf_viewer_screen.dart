@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pdfrx/pdfrx.dart';
 
-import '../../core/theme/app_colors.dart';
-
 class PdfViewerScreen extends StatelessWidget {
   const PdfViewerScreen({
     super.key,
