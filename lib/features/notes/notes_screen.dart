@@ -4,6 +4,7 @@ import '../../core/theme/app_spacing.dart';
 import '../../core/widgets/note_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/studybase_search_field.dart';
+import 'pdf_viewer_screen.dart';
 
 class NotesScreen extends StatelessWidget {
   const NotesScreen({super.key, this.subject});
@@ -52,7 +53,16 @@ class NotesScreen extends StatelessWidget {
               child: StudyBaseNoteCard(
                 title: note.title,
                 subject: note.subject,
-                onOpen: () {},
+                onOpen: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => PdfViewerScreen(
+                        title: note.title,
+                        assetPath: 'assets/pdfs/studybase_preview.pdf',
+                      ),
+                    ),
+                  );
+                },
                 onDownload: () {},
               ),
             ),
