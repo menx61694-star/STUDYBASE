@@ -21,6 +21,11 @@ jobs:
       - name: Create Android platform scaffold
         run: flutter create --platforms=android --no-pub .
 
+      - name: Set permanent Android application ID
+        run: |
+          sed -i 's/applicationId = "com.example.studybase"/applicationId = "com.studybase.pixelforge"/' android/app/build.gradle.kts
+          grep -F 'applicationId = "com.studybase.pixelforge"' android/app/build.gradle.kts
+
       - name: Install dependencies
         run: flutter pub get
 
