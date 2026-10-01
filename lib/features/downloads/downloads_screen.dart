@@ -8,7 +8,10 @@ import '../../core/widgets/empty_state.dart';
 import 'downloads_service.dart';
 
 class DownloadsScreen extends StatefulWidget {
-  const DownloadsScreen({super.key});
+  const DownloadsScreen({super.key, this.initialDownloads});
+
+  /// Allows the initial list to be supplied by tests or a parent screen.
+  final Future<List<File>>? initialDownloads;
 
   @override
   State<DownloadsScreen> createState() => _DownloadsScreenState();
@@ -20,7 +23,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
   @override
   void initState() {
     super.initState();
-    _downloads = DownloadsService.listSavedPdfs();
+    _downloads = widget.initialDownloads ?? DownloadsService.listSavedPdfs();
   }
 
   Future<void> _refresh() async {
@@ -88,7 +91,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
               itemBuilder: (context, index) {
                 final file = files[index];
                 final name = file.uri.pathSegments.last
-                    .replaceAll(RegExp(r'\.pdf$', caseSensitive: false), '')
+                    .replaceAll(RegExp(r'\\.pdf$', caseSensitive: false), '')
                     .replaceAll('_', ' ');
                 return Card(
                   child: ListTile(
