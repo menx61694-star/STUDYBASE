@@ -4,6 +4,7 @@ import '../../core/theme/app_spacing.dart';
 import '../../core/widgets/note_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/studybase_search_field.dart';
+import '../downloads/downloads_service.dart';
 import 'pdf_viewer_screen.dart';
 
 class NotesScreen extends StatelessWidget {
@@ -17,6 +18,26 @@ class NotesScreen extends StatelessWidget {
     (title: 'Reasoning — Important Questions', subject: 'Reasoning'),
     (title: 'English — Grammar Essentials', subject: 'English'),
   ];
+
+  static const _previewAsset = 'assets/pdfs/studybase_preview.pdf';
+
+  Future<void> _downloadNote(BuildContext context, String title) async {
+    try {
+      final path = await DownloadsService.savePdf(
+        title: title,
+        assetPath: _previewAsset,
+      );
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('PDF saved for offline use: $path')),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Download failed. Please try again.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +79,12 @@ class NotesScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (_) => PdfViewerScreen(
                         title: note.title,
-                        assetPath: 'assets/pdfs/studybase_preview.pdf',
+                        assetPath: _previewAsset,
                       ),
                     ),
                   );
                 },
-                onDownload: () {},
+                onDownload: () => _downloadNote(context, note.title),
               ),
             ),
           ),

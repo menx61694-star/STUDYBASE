@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pdfrx/pdfrx.dart';
 
+import '../downloads/downloads_service.dart';
+
 class PdfViewerScreen extends StatelessWidget {
   const PdfViewerScreen({
     super.key,
@@ -12,6 +14,25 @@ class PdfViewerScreen extends StatelessWidget {
   final String title;
   final String? assetPath;
   final Uri? uri;
+
+  Future<void> _download(BuildContext context) async {
+    try {
+      final path = await DownloadsService.savePdf(
+        title: title,
+        assetPath: assetPath,
+        uri: uri,
+      );
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('PDF saved for offline use: $path')),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Download failed. Please try again.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +56,7 @@ class PdfViewerScreen extends StatelessWidget {
         actions: [
           IconButton(
             tooltip: 'Download',
-            onPressed: () {},
+            onPressed: () => _download(context),
             icon: const Icon(Icons.download_outlined),
           ),
         ],
