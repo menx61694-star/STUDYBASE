@@ -7,6 +7,8 @@ import '../../core/widgets/studybase_search_field.dart';
 import '../../core/widgets/subject_tile.dart';
 import '../downloads/downloads_screen.dart';
 import '../notes/notes_screen.dart';
+import '../notifications/notifications_screen.dart';
+import '../profile/profile_screen.dart';
 import '../subjects/subjects_screen.dart';
 import '../tests/tests_screen.dart';
 
@@ -33,8 +35,8 @@ class HomeScreen extends StatelessWidget {
         title: const Text('StudyBase'),
         actions: [
           IconButton(tooltip: 'Downloads', onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const DownloadsScreen())), icon: const Icon(Icons.download_for_offline_outlined)),
-          IconButton(tooltip: 'Notifications', onPressed: () {}, icon: const Icon(Icons.notifications_none_rounded)),
-          IconButton(tooltip: 'Profile', onPressed: () {}, icon: const Icon(Icons.account_circle_outlined)),
+          IconButton(tooltip: 'Notifications', onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const NotificationsScreen())), icon: const Icon(Icons.notifications_none_rounded)),
+          IconButton(tooltip: 'Profile', onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const ProfileScreen())), icon: const Icon(Icons.account_circle_outlined)),
         ],
       ),
       body: SafeArea(
@@ -77,6 +79,8 @@ class HomeScreen extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const SubjectsScreen()));
           } else if (index == 2) {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const TestsScreen()));
+          } else if (index == 3) {
+            Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const ProfileScreen()));
           }
         },
         destinations: const [
