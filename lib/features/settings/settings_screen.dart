@@ -22,27 +22,25 @@ class SettingsScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: AppSpacing.sm),
             Card(
-              child: Column(
-                children: [
-                  RadioListTile<String>(
-                    value: 'en',
-                    groupValue: preferences.locale.languageCode,
-                    title: const Text('English'),
-                    subtitle: const Text('English interface'),
-                    onChanged: (value) {
-                      if (value != null) preferences.setLanguage(value);
-                    },
-                  ),
-                  RadioListTile<String>(
-                    value: 'hi',
-                    groupValue: preferences.locale.languageCode,
-                    title: const Text('हिन्दी'),
-                    subtitle: const Text('Hindi interface'),
-                    onChanged: (value) {
-                      if (value != null) preferences.setLanguage(value);
-                    },
-                  ),
-                ],
+              child: RadioGroup<String>(
+                groupValue: preferences.locale.languageCode,
+                onChanged: (value) {
+                  if (value != null) preferences.setLanguage(value);
+                },
+                child: const Column(
+                  children: [
+                    RadioListTile<String>(
+                      value: 'en',
+                      title: Text('English'),
+                      subtitle: Text('English interface'),
+                    ),
+                    RadioListTile<String>(
+                      value: 'hi',
+                      title: Text('हिन्दी'),
+                      subtitle: Text('Hindi interface'),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -50,33 +48,27 @@ class SettingsScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: AppSpacing.sm),
             Card(
-              child: Column(
-                children: [
-                  RadioListTile<ThemeMode>(
-                    value: ThemeMode.system,
-                    groupValue: preferences.themeMode,
-                    title: Text(hindi ? 'डिवाइस के अनुसार' : 'System default'),
-                    onChanged: (value) {
-                      if (value != null) preferences.setThemeMode(value);
-                    },
-                  ),
-                  RadioListTile<ThemeMode>(
-                    value: ThemeMode.light,
-                    groupValue: preferences.themeMode,
-                    title: Text(hindi ? 'लाइट मोड' : 'Light mode'),
-                    onChanged: (value) {
-                      if (value != null) preferences.setThemeMode(value);
-                    },
-                  ),
-                  RadioListTile<ThemeMode>(
-                    value: ThemeMode.dark,
-                    groupValue: preferences.themeMode,
-                    title: Text(hindi ? 'डार्क मोड' : 'Dark mode'),
-                    onChanged: (value) {
-                      if (value != null) preferences.setThemeMode(value);
-                    },
-                  ),
-                ],
+              child: RadioGroup<ThemeMode>(
+                groupValue: preferences.themeMode,
+                onChanged: (value) {
+                  if (value != null) preferences.setThemeMode(value);
+                },
+                child: Column(
+                  children: [
+                    RadioListTile<ThemeMode>(
+                      value: ThemeMode.system,
+                      title: Text(hindi ? 'डिवाइस के अनुसार' : 'System default'),
+                    ),
+                    RadioListTile<ThemeMode>(
+                      value: ThemeMode.light,
+                      title: Text(hindi ? 'लाइट मोड' : 'Light mode'),
+                    ),
+                    RadioListTile<ThemeMode>(
+                      value: ThemeMode.dark,
+                      title: Text(hindi ? 'डार्क मोड' : 'Dark mode'),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: AppSpacing.md),
