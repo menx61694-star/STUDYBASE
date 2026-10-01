@@ -64,9 +64,9 @@ class TestsScreen extends StatelessWidget {
                           Expanded(child: Text(test.title, style: Theme.of(context).textTheme.titleMedium)),
                         ]),
                         const SizedBox(height: AppSpacing.sm),
-                        Text(test.subject + '  •  ' + test.questions.length.toString() + ' questions'),
+                        Text('${test.subject}  •  ${test.questions.length} questions'),
                         const SizedBox(height: AppSpacing.xs),
-                        Text(test.minutes.toString() + ' min  •  Instant score and explanations'),
+                        Text('${test.minutes} min  •  Instant score and explanations'),
                         const SizedBox(height: AppSpacing.md),
                         StudyBasePrimaryButton(
                           label: 'Start test',
@@ -112,17 +112,17 @@ class _MockQuizScreenState extends State<MockQuizScreen> {
             const SizedBox(height: AppSpacing.md),
             Text('Test completed', style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.xs),
-            Text('Your score: ' + _score.toString() + ' / ' + questions.length.toString(), style: Theme.of(context).textTheme.titleLarge),
+            Text('Your score: $_score / ${questions.length}', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: AppSpacing.md),
             ...questions.asMap().entries.map((e) => Card(
                   child: Padding(
                     padding: const EdgeInsets.all(AppSpacing.md),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text((e.key + 1).toString() + '. ' + e.value.text, style: Theme.of(context).textTheme.titleSmall),
+                      Text('${e.key + 1}. ${e.value.text}', style: Theme.of(context).textTheme.titleSmall),
                       const SizedBox(height: AppSpacing.xs),
-                      Text('Correct answer: ' + e.value.options[e.value.answer]),
+                      Text('Correct answer: ${e.value.options[e.value.answer]}'),
                       if (_answers[e.key] != null && _answers[e.key] != e.value.answer)
-                        Text('Your answer: ' + e.value.options[_answers[e.key]!]),
+                        Text('Your answer: ${e.value.options[_answers[e.key]!]}'),
                       const SizedBox(height: AppSpacing.xs),
                       Text(e.value.explanation),
                     ]),
@@ -135,19 +135,27 @@ class _MockQuizScreenState extends State<MockQuizScreen> {
             const SizedBox(height: AppSpacing.md),
             LinearProgressIndicator(value: (_index + 1) / questions.length),
             const SizedBox(height: AppSpacing.sm),
-            Text('Question ' + (_index + 1).toString() + ' of ' + questions.length.toString()),
+            Text('Question ${_index + 1} of ${questions.length}'),
             const SizedBox(height: AppSpacing.lg),
             Text(q.text, style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.md),
-            ...q.options.asMap().entries.map((e) => Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                  child: Card(child: RadioListTile<int>(
-                    value: e.key,
-                    groupValue: selected,
-                    title: Text(e.value),
-                    onChanged: (value) { if (value != null) setState(() => _answers[_index] = value); },
-                  )),
-                )),
+            RadioGroup<int>(
+              groupValue: selected,
+              onChanged: (value) {
+                if (value != null) setState(() => _answers[_index] = value);
+              },
+              child: Column(
+                children: q.options.asMap().entries.map((e) => Padding(
+                      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                      child: Card(
+                        child: RadioListTile<int>(
+                          value: e.key,
+                          title: Text(e.value),
+                        ),
+                      ),
+                    )).toList(),
+              ),
+            ),
             const SizedBox(height: AppSpacing.md),
             StudyBasePrimaryButton(
               label: _index == questions.length - 1 ? 'Submit test' : 'Next question',
