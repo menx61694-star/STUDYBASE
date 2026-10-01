@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Default-deny until authenticated upload/download paths, ownership,
+    // size limits, and content-type restrictions are configured.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

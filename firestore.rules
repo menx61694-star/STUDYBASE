@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny until the StudyBase data schema and ownership model
+    // are reviewed and tested against the real Firebase project.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

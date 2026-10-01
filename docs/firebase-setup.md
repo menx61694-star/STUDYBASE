@@ -1,17 +1,36 @@
-# Firebase backend setup
+# StudyBase Firebase backend — Phase 14
 
-Firebase integration must use project-specific configuration generated for the actual Firebase project. Do not commit service-account keys, private credentials, or a fabricated `firebase_options.dart`.
+## Repository status
 
-## Required setup before enabling the backend
+- Firebase project: the project exists, according to the project owner.
+- Android app registration: pending.
+- Authentication planned: Email/Password and Google Sign-In.
+- Data services planned: Cloud Firestore and Cloud Storage.
+- Push notifications: Firebase Cloud Messaging package is included for later integration.
+- Firebase client configuration: not present or verified in this repository.
+- Firebase initialization and live sign-in/data operations: **not enabled yet**.
 
-1. Create a Firebase project and register the Android application using the exact Android application ID from `android/app/build.gradle` or `android/app/build.gradle.kts`.
-2. Install FlutterFire CLI in a development environment with Flutter and Firebase CLI available.
-3. Run `flutterfire configure` for the selected project and platforms. This generates the project-specific `lib/firebase_options.dart`.
-4. Add and configure the required packages: `firebase_core`, `firebase_auth`, `cloud_firestore`, `firebase_storage`, and `firebase_messaging`.
-5. Initialize Firebase before `runApp` using `DefaultFirebaseOptions.currentPlatform`.
-6. Configure Firebase Authentication providers, Firestore security rules, Storage rules, and Android notification permissions.
-7. Test sign-up, sign-in, password reset, authorized data access, file access, and notification delivery against the configured project.
+The CI workflow creates a temporary Android scaffold with `flutter create --platforms=android --no-pub .`. It is not committed to the repository. The generated scaffold currently uses Flutter's default example application identifier, so confirm the intended permanent Android application ID before registering the app in Firebase. Do not register an assumed ID.
 
-## Current status
+## Setup using the real Firebase project
 
-The app currently has local profile/preferences and UI-level authentication only. Firebase is **not connected** because this repository does not yet contain verified project configuration. Do not present local profile data or sample practice content as cloud-synced user data. Backend work can be enabled after the project configuration and rules are supplied and verified.
+1. Decide and confirm the permanent Android application ID.
+2. In Firebase Console, register the Android app with that exact ID and download its `google-services.json`.
+3. In an environment with FlutterFire CLI and Firebase CLI installed, run `flutterfire configure` for the project and required platforms. This must generate the real `lib/firebase_options.dart`; never hand-write fake project IDs, app IDs, API keys, or sender IDs.
+4. Place the generated client configuration in the expected locations. Verify whether `google-services.json` should be committed based on repository visibility and project policy; never commit service-account private keys.
+5. Enable Email/Password and Google providers in Firebase Authentication. Configure the Android SHA fingerprints and Google OAuth settings required by Google Sign-In.
+6. Create the Firestore database and Storage bucket in the intended region.
+7. Review and test `firestore.rules` and `storage.rules` against the final collection/path schema before deployment. The current rules intentionally deny all client access; do not loosen them to public read/write.
+8. Only after valid configuration exists, initialize Firebase before `runApp` and implement Auth, Firestore, Storage, and FCM flows.
+9. Test sign-up, sign-in, Google Sign-In, sign-out, password reset, unauthorized access denial, authorized user data access, file upload/download, and notification permission/token handling.
+
+## Important safety notes
+
+- Do not use client-side role flags as authorization. Any admin privileges must be enforced by trusted Firebase Security Rules using verified claims or another server-controlled mechanism.
+- Do not store passwords or private credentials in SharedPreferences.
+- Do not describe local profile/preferences or sample notes as cloud-synced data.
+- Keep rules default-deny until the actual schema and ownership checks are in place.
+
+## Current implementation boundary
+
+This phase adds the Firebase SDK dependencies and fail-closed rules/configuration scaffolding. It does not claim a live Firebase connection: Android registration and project-specific client configuration are still prerequisites. The app must remain buildable before those project-specific files are supplied.
