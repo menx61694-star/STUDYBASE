@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const ProfileScreen()));
           }
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: StudyBaseStrings.home(context)),
           NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book_rounded), label: 'Subjects'),
           NavigationDestination(icon: Icon(Icons.quiz_outlined), selectedIcon: Icon(Icons.quiz_rounded), label: StudyBaseStrings.tests(context)),
