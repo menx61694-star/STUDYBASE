@@ -91,7 +91,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
               itemBuilder: (context, index) {
                 final file = files[index];
                 final name = file.uri.pathSegments.last
-                    .replaceAll(RegExp(r'\\.pdf$', caseSensitive: false), '')
+                    .replaceAll(RegExp(r'\.pdf$', caseSensitive: false), '')
                     .replaceAll('_', ' ');
                 return Card(
                   child: ListTile(
