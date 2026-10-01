@@ -6,26 +6,43 @@ import 'features/home/home_screen.dart';
 import 'core/widgets/primary_button.dart';
 import 'core/widgets/studybase_logo.dart';
 import 'core/theme/app_theme.dart';
+import 'core/settings/app_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const StudyBaseApp());
 }
 
-class StudyBaseApp extends StatelessWidget {
+class StudyBaseApp extends StatefulWidget {
   const StudyBaseApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StudyBase',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      themeMode: ThemeMode.system,
-      home: const StudyBaseLaunchFlow(),
-    );
+  State<StudyBaseApp> createState() => _StudyBaseAppState();
+}
+
+class _StudyBaseAppState extends State<StudyBaseApp> {
+  final _preferences = AppPreferences.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _preferences.load();
   }
+
+  @override
+  Widget build(BuildContext context) => AnimatedBuilder(
+        animation: _preferences,
+        builder: (context, _) => MaterialApp(
+          title: 'StudyBase',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: _preferences.themeMode,
+          locale: _preferences.locale,
+          supportedLocales: const [Locale('en'), Locale('hi')],
+          home: const StudyBaseLaunchFlow(),
+        ),
+      );
 }
 
 class StudyBaseLaunchFlow extends StatefulWidget {

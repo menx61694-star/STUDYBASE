@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_spacing.dart';
+import '../../core/settings/studybase_strings.dart';
 import '../../core/widgets/note_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/studybase_search_field.dart';
@@ -10,6 +11,7 @@ import '../notes/notes_screen.dart';
 import '../notifications/notifications_screen.dart';
 import '../profile/profile_screen.dart';
 import '../subjects/subjects_screen.dart';
+import '../settings/settings_screen.dart';
 import '../tests/tests_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,6 +36,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('StudyBase'),
         actions: [
+          IconButton(tooltip: StudyBaseStrings.settings(context), onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen())), icon: const Icon(Icons.settings_outlined)),
           IconButton(tooltip: 'Downloads', onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const DownloadsScreen())), icon: const Icon(Icons.download_for_offline_outlined)),
           IconButton(tooltip: 'Notifications', onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const NotificationsScreen())), icon: const Icon(Icons.notifications_none_rounded)),
           IconButton(tooltip: 'Profile', onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const ProfileScreen())), icon: const Icon(Icons.account_circle_outlined)),
@@ -43,13 +46,13 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           padding: AppSpacing.page,
           children: [
-            Text('Ready to learn?', style: Theme.of(context).textTheme.headlineSmall),
+            Text(StudyBaseStrings.readyToLearn(context), style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.xs),
-            Text('Find notes, practice and keep learning.', style: Theme.of(context).textTheme.bodyMedium),
+            Text(StudyBaseStrings.homeSubtitle(context), style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: AppSpacing.lg),
             const StudyBaseSearchField(),
             const SizedBox(height: AppSpacing.xl),
-            StudyBaseSectionHeader(title: 'Subjects', actionLabel: 'View all', onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SubjectsScreen()))),
+            StudyBaseSectionHeader(title: StudyBaseStrings.subjects(context), actionLabel: StudyBaseStrings.viewAll(context), onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SubjectsScreen()))),
             const SizedBox(height: AppSpacing.sm),
             ...subjects.map((subject) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.sm),
@@ -59,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 )),
             const SizedBox(height: AppSpacing.md),
-            StudyBaseSectionHeader(title: 'Recent notes', actionLabel: 'View all', onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const NotesScreen()))),
+            StudyBaseSectionHeader(title: StudyBaseStrings.recentNotes(context), actionLabel: StudyBaseStrings.viewAll(context), onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const NotesScreen()))),
             const SizedBox(height: AppSpacing.sm),
             ...recentNotes.map((note) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.sm),
@@ -84,10 +87,10 @@ class HomeScreen extends StatelessWidget {
           }
         },
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: StudyBaseStrings.home(context)),
           NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book_rounded), label: 'Subjects'),
-          NavigationDestination(icon: Icon(Icons.quiz_outlined), selectedIcon: Icon(Icons.quiz_rounded), label: 'Tests'),
-          NavigationDestination(icon: Icon(Icons.person_outline_rounded), selectedIcon: Icon(Icons.person_rounded), label: 'Profile'),
+          NavigationDestination(icon: Icon(Icons.quiz_outlined), selectedIcon: Icon(Icons.quiz_rounded), label: StudyBaseStrings.tests(context)),
+          NavigationDestination(icon: Icon(Icons.person_outline_rounded), selectedIcon: Icon(Icons.person_rounded), label: StudyBaseStrings.profile(context)),
         ],
       ),
     );
