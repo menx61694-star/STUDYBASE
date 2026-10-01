@@ -5,6 +5,7 @@ import '../../core/widgets/note_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/studybase_search_field.dart';
 import '../../core/widgets/subject_tile.dart';
+import '../downloads/downloads_screen.dart';
 import '../notes/notes_screen.dart';
 import '../subjects/subjects_screen.dart';
 
@@ -31,6 +32,13 @@ class HomeScreen extends StatelessWidget {
         title: const Text('StudyBase'),
         actions: [
           IconButton(
+            tooltip: 'Downloads',
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const DownloadsScreen()),
+            ),
+            icon: const Icon(Icons.download_for_offline_outlined),
+          ),
+          IconButton(
             tooltip: 'Notifications',
             onPressed: () {},
             icon: const Icon(Icons.notifications_none_rounded),
@@ -46,26 +54,18 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           padding: AppSpacing.page,
           children: [
-            Text(
-              'Ready to learn?',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            Text('Ready to learn?', style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.xs),
-            Text(
-              'Find notes, practice and keep learning.',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            Text('Find notes, practice and keep learning.', style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: AppSpacing.lg),
             const StudyBaseSearchField(),
             const SizedBox(height: AppSpacing.xl),
             StudyBaseSectionHeader(
               title: 'Subjects',
               actionLabel: 'View all',
-              onAction: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const SubjectsScreen()),
-                );
-              },
+              onAction: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const SubjectsScreen()),
+              ),
             ),
             const SizedBox(height: AppSpacing.sm),
             ...subjects.map(
@@ -75,13 +75,9 @@ class HomeScreen extends StatelessWidget {
                   title: subject.title,
                   icon: subject.icon,
                   noteCount: subject.count,
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => NotesScreen(subject: subject.title),
-                      ),
-                    );
-                  },
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => NotesScreen(subject: subject.title)),
+                  ),
                 ),
               ),
             ),
@@ -89,11 +85,9 @@ class HomeScreen extends StatelessWidget {
             StudyBaseSectionHeader(
               title: 'Recent notes',
               actionLabel: 'View all',
-              onAction: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const NotesScreen()),
-                );
-              },
+              onAction: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const NotesScreen()),
+              ),
             ),
             const SizedBox(height: AppSpacing.sm),
             ...recentNotes.map(
@@ -102,14 +96,12 @@ class HomeScreen extends StatelessWidget {
                 child: StudyBaseNoteCard(
                   title: note.title,
                   subject: note.subject,
-                  onOpen: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => NotesScreen(subject: note.subject),
-                      ),
-                    );
-                  },
-                  onDownload: () {},
+                  onOpen: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => NotesScreen(subject: note.subject)),
+                  ),
+                  onDownload: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const DownloadsScreen()),
+                  ),
                 ),
               ),
             ),
@@ -119,26 +111,10 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         selectedIndex: 0,
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.menu_book_outlined),
-            selectedIcon: Icon(Icons.menu_book_rounded),
-            label: 'Subjects',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.quiz_outlined),
-            selectedIcon: Icon(Icons.quiz_rounded),
-            label: 'Tests',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline_rounded),
-            selectedIcon: Icon(Icons.person_rounded),
-            label: 'Profile',
-          ),
+          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book_rounded), label: 'Subjects'),
+          NavigationDestination(icon: Icon(Icons.quiz_outlined), selectedIcon: Icon(Icons.quiz_rounded), label: 'Tests'),
+          NavigationDestination(icon: Icon(Icons.person_outline_rounded), selectedIcon: Icon(Icons.person_rounded), label: 'Profile'),
         ],
       ),
     );
