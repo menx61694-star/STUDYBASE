@@ -8,6 +8,7 @@ import '../../core/widgets/subject_tile.dart';
 import '../downloads/downloads_screen.dart';
 import '../notes/notes_screen.dart';
 import '../subjects/subjects_screen.dart';
+import '../tests/tests_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,23 +32,9 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('StudyBase'),
         actions: [
-          IconButton(
-            tooltip: 'Downloads',
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const DownloadsScreen()),
-            ),
-            icon: const Icon(Icons.download_for_offline_outlined),
-          ),
-          IconButton(
-            tooltip: 'Notifications',
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_none_rounded),
-          ),
-          IconButton(
-            tooltip: 'Profile',
-            onPressed: () {},
-            icon: const Icon(Icons.account_circle_outlined),
-          ),
+          IconButton(tooltip: 'Downloads', onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const DownloadsScreen())), icon: const Icon(Icons.download_for_offline_outlined)),
+          IconButton(tooltip: 'Notifications', onPressed: () {}, icon: const Icon(Icons.notifications_none_rounded)),
+          IconButton(tooltip: 'Profile', onPressed: () {}, icon: const Icon(Icons.account_circle_outlined)),
         ],
       ),
       body: SafeArea(
@@ -60,56 +47,38 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
             const StudyBaseSearchField(),
             const SizedBox(height: AppSpacing.xl),
-            StudyBaseSectionHeader(
-              title: 'Subjects',
-              actionLabel: 'View all',
-              onAction: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const SubjectsScreen()),
-              ),
-            ),
+            StudyBaseSectionHeader(title: 'Subjects', actionLabel: 'View all', onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SubjectsScreen()))),
             const SizedBox(height: AppSpacing.sm),
-            ...subjects.map(
-              (subject) => Padding(
-                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                child: StudyBaseSubjectTile(
-                  title: subject.title,
-                  icon: subject.icon,
-                  noteCount: subject.count,
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => NotesScreen(subject: subject.title)),
+            ...subjects.map((subject) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                  child: StudyBaseSubjectTile(
+                    title: subject.title, icon: subject.icon, noteCount: subject.count,
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => NotesScreen(subject: subject.title))),
                   ),
-                ),
-              ),
-            ),
+                )),
             const SizedBox(height: AppSpacing.md),
-            StudyBaseSectionHeader(
-              title: 'Recent notes',
-              actionLabel: 'View all',
-              onAction: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const NotesScreen()),
-              ),
-            ),
+            StudyBaseSectionHeader(title: 'Recent notes', actionLabel: 'View all', onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const NotesScreen()))),
             const SizedBox(height: AppSpacing.sm),
-            ...recentNotes.map(
-              (note) => Padding(
-                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                child: StudyBaseNoteCard(
-                  title: note.title,
-                  subject: note.subject,
-                  onOpen: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => NotesScreen(subject: note.subject)),
+            ...recentNotes.map((note) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                  child: StudyBaseNoteCard(
+                    title: note.title, subject: note.subject,
+                    onOpen: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => NotesScreen(subject: note.subject))),
+                    onDownload: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const DownloadsScreen())),
                   ),
-                  onDownload: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const DownloadsScreen()),
-                  ),
-                ),
-              ),
-            ),
+                )),
           ],
         ),
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: 0,
+        onDestinationSelected: (index) {
+          if (index == 1) {
+            Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const SubjectsScreen()));
+          } else if (index == 2) {
+            Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const TestsScreen()));
+          }
+        },
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book_rounded), label: 'Subjects'),
