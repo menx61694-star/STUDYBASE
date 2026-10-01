@@ -17,8 +17,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Enter a display name'), findsOneWidget);
 
-    await tester.enterText(find.widgetWithText(TextFormField, 'Enter your name'), 'Vivek');
-    await tester.enterText(find.widgetWithText(TextFormField, 'you@example.com'), 'vivek@example.com');
+    await tester.enterText(find.byType(TextFormField).at(0), 'Vivek');
+    await tester.enterText(find.byType(TextFormField).at(1), 'vivek@example.com');
     await tester.tap(find.text('Save profile'));
     await tester.pumpAndSettle();
 
