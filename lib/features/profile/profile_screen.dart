@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/settings/studybase_strings.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/widgets/primary_button.dart';
 
@@ -19,6 +20,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _emailController = TextEditingController();
   bool _loading = true;
   bool _saving = false;
+
+  bool get _hindi => Localizations.localeOf(context).languageCode == 'hi';
 
   @override
   void initState() {
@@ -43,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (!mounted) return;
     setState(() => _saving = false);
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Profile saved on this device.')),
+      SnackBar(content: Text(_hindi ? 'प्रोफ़ाइल इस डिवाइस पर सेव हो गई।' : 'Profile saved on this device.')),
     );
   }
 
@@ -56,8 +59,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final hindi = _hindi;
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
+      appBar: AppBar(title: Text(StudyBaseStrings.profile(context))),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
@@ -76,9 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       const SizedBox(height: AppSpacing.md),
-                      Text('Your learning profile', style: Theme.of(context).textTheme.titleLarge),
+                      Text(hindi ? 'आपकी लर्निंग प्रोफ़ाइल' : 'Your learning profile', style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
                       const SizedBox(height: AppSpacing.xs),
-                      Text('Your details are saved on this device.', style: Theme.of(context).textTheme.bodyMedium),
+                      Text(hindi ? 'आपकी जानकारी इसी डिवाइस पर सेव होती है।' : 'Your details are saved on this device.', style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
                     ],
                   ),
                 ),
@@ -88,40 +92,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Display name', style: Theme.of(context).textTheme.titleSmall),
+                      Text(hindi ? 'नाम' : 'Display name', style: Theme.of(context).textTheme.titleSmall),
                       const SizedBox(height: AppSpacing.xs),
                       TextFormField(
                         controller: _nameController,
                         textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter your name',
-                          prefixIcon: Icon(Icons.person_outline_rounded),
+                        decoration: InputDecoration(
+                          hintText: hindi ? 'अपना नाम लिखें' : 'Enter your name',
+                          prefixIcon: const Icon(Icons.person_outline_rounded),
                         ),
                         validator: (value) => value == null || value.trim().isEmpty
-                            ? 'Enter a display name'
+                            ? (hindi ? 'नाम लिखें' : 'Enter a display name')
                             : null,
                       ),
                       const SizedBox(height: AppSpacing.md),
-                      Text('Email (optional)', style: Theme.of(context).textTheme.titleSmall),
+                      Text(hindi ? 'ईमेल (वैकल्पिक)' : 'Email (optional)', style: Theme.of(context).textTheme.titleSmall),
                       const SizedBox(height: AppSpacing.xs),
                       TextFormField(
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: 'you@example.com',
-                          prefixIcon: Icon(Icons.email_outlined),
+                          prefixIcon: const Icon(Icons.email_outlined),
                         ),
                         validator: (value) {
                           final email = value?.trim() ?? '';
                           if (email.isNotEmpty && !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(email)) {
-                            return 'Enter a valid email address';
+                            return hindi ? 'सही ईमेल पता लिखें' : 'Enter a valid email address';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: AppSpacing.lg),
                       StudyBasePrimaryButton(
-                        label: _saving ? 'Saving...' : 'Save profile',
+                        label: _saving ? (hindi ? 'सेव हो रहा है…' : 'Saving...') : (hindi ? 'प्रोफ़ाइल सेव करें' : 'Save profile'),
                         icon: Icons.save_outlined,
                         onPressed: _saving ? null : _saveProfile,
                       ),
