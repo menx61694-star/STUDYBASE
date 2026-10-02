@@ -37,9 +37,9 @@ class HomeScreen extends StatelessWidget {
         title: const Text('StudyBase'),
         actions: [
           IconButton(tooltip: StudyBaseStrings.settings(context), onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen())), icon: const Icon(Icons.settings_outlined)),
-          IconButton(tooltip: 'Downloads', onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const DownloadsScreen())), icon: const Icon(Icons.download_for_offline_outlined)),
-          IconButton(tooltip: 'Notifications', onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const NotificationsScreen())), icon: const Icon(Icons.notifications_none_rounded)),
-          IconButton(tooltip: 'Profile', onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const ProfileScreen())), icon: const Icon(Icons.account_circle_outlined)),
+          IconButton(tooltip: StudyBaseStrings.downloads(context), onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const DownloadsScreen())), icon: const Icon(Icons.download_for_offline_outlined)),
+          IconButton(tooltip: StudyBaseStrings.notifications(context), onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const NotificationsScreen())), icon: const Icon(Icons.notifications_none_rounded)),
+          IconButton(tooltip: StudyBaseStrings.profile(context), onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const ProfileScreen())), icon: const Icon(Icons.account_circle_outlined)),
         ],
       ),
       body: SafeArea(
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
         },
         destinations: [
           NavigationDestination(icon: const Icon(Icons.home_outlined), selectedIcon: const Icon(Icons.home_rounded), label: StudyBaseStrings.home(context)),
-          const NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book_rounded), label: 'Subjects'),
+          const NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book_rounded), label: Localizations.localeOf(context).languageCode == 'hi' ? 'विषय' : 'Subjects'),
           NavigationDestination(icon: const Icon(Icons.quiz_outlined), selectedIcon: const Icon(Icons.quiz_rounded), label: StudyBaseStrings.tests(context)),
           NavigationDestination(icon: const Icon(Icons.person_outline_rounded), selectedIcon: const Icon(Icons.person_rounded), label: StudyBaseStrings.profile(context)),
         ],
